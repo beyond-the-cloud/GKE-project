@@ -30,7 +30,7 @@ variable "gke_cidr_name1" {
 
 variable "gke_cidr2" {
   type = string
-  default = "216.180.87.0/24"
+  default = "209.6.158.0/24"
 }
 
 variable "gke_cidr_name2" {
