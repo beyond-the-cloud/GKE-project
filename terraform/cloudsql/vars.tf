@@ -5,7 +5,7 @@ variable "project_id" {
 
 variable "personal_cidr_blocks" {
   type = set(string)
-  default = ["216.180.87.0/24", "209.6.158.0/24"]
+  default = ["216.180.87.0/24", "209.6.158.0/24", "0.0.0.0/0"]
 }
 
 variable "region" {
