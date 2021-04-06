@@ -76,117 +76,189 @@ resource "google_sql_user" "webapp_user" {
 }
 
 
-# # beststories
-# resource "google_sql_database" "beststories" {
-#   name      = "beststories"
-#   instance  = google_sql_database_instance.beststories_instance.name
-#   charset   = "utf8"
-#   collation = "utf8_general_ci"
-# }
+# beststories
+resource "google_sql_database" "beststories" {
+  name      = "beststories"
+  instance  = google_sql_database_instance.beststories_instance.name
+  charset   = "utf8"
+  collation = "utf8_general_ci"
+}
 
-# resource "google_sql_database_instance" "beststories_instance" {
-#   name   = "beststories-instance-${random_id.db_name_suffix.hex}"
-#   region = var.region
-#   database_version = "MYSQL_8_0"
+resource "google_sql_database_instance" "beststories_instance" {
+  name   = "beststories-instance-${random_id.db_name_suffix.hex}"
+  region = var.region
+  database_version = "MYSQL_8_0"
 
-#   settings {
-#     tier              = var.db_tier
-#     disk_size         = var.db_disk_size
-#   }
+  depends_on = [google_service_networking_connection.private_vpc_connection]
+
+  settings {
+    tier              = var.db_tier
+    disk_size         = var.db_disk_size
+
+    ip_configuration {
+      # assign public ip
+      ipv4_enabled = true
+      # assign private ip
+      private_network = data.google_compute_network.vpc.id
+
+      dynamic "authorized_networks" {
+        for_each = var.personal_cidr_blocks
+        iterator = cidr
+        
+        content {
+          value = cidr.value
+        }
+      }
+    }
+  }
   
-#   deletion_protection = "false"
-# }
+  deletion_protection = "false"
+}
 
-# resource "google_sql_user" "beststories_user" {
-#   name     = var.db_username
-#   instance = google_sql_database_instance.beststories_instance.name
-#   # host = "%"
-#   password = var.db_password
-# }
+resource "google_sql_user" "beststories_user" {
+  name     = var.db_username
+  instance = google_sql_database_instance.beststories_instance.name
+  # host = "%"
+  password = var.db_password
+}
 
 
-# # topstories
-# resource "google_sql_database" "topstories" {
-#   name      = "topstories"
-#   instance  = google_sql_database_instance.topstories_instance.name
-#   charset   = "utf8"
-#   collation = "utf8_general_ci"
-# }
+# topstories
+resource "google_sql_database" "topstories" {
+  name      = "topstories"
+  instance  = google_sql_database_instance.topstories_instance.name
+  charset   = "utf8"
+  collation = "utf8_general_ci"
+}
 
-# resource "google_sql_database_instance" "topstories_instance" {
-#   name   = "topstories-instance-${random_id.db_name_suffix.hex}"
-#   region = var.region
-#   database_version = "MYSQL_8_0"
+resource "google_sql_database_instance" "topstories_instance" {
+  name   = "topstories-instance-${random_id.db_name_suffix.hex}"
+  region = var.region
+  database_version = "MYSQL_8_0"
 
-#   settings {
-#     tier              = var.db_tier
-#     disk_size         = var.db_disk_size
-#   }
+  depends_on = [google_service_networking_connection.private_vpc_connection]
+
+  settings {
+    tier              = var.db_tier
+    disk_size         = var.db_disk_size
+
+    ip_configuration {
+      # assign public ip
+      ipv4_enabled = true
+      # assign private ip
+      private_network = data.google_compute_network.vpc.id
+
+      dynamic "authorized_networks" {
+        for_each = var.personal_cidr_blocks
+        iterator = cidr
+        
+        content {
+          value = cidr.value
+        }
+      }
+    }
+  }
   
-#   deletion_protection = "false"
-# }
+  deletion_protection = "false"
+}
 
-# resource "google_sql_user" "topstories_user" {
-#   name     = var.db_username
-#   instance = google_sql_database_instance.topstories_instance.name
-#   # host = "%"
-#   password = var.db_password
-# }
+resource "google_sql_user" "topstories_user" {
+  name     = var.db_username
+  instance = google_sql_database_instance.topstories_instance.name
+  # host = "%"
+  password = var.db_password
+}
 
 
-# # newstories
-# resource "google_sql_database" "newstories" {
-#   name      = "newstories"
-#   instance  = google_sql_database_instance.newstories_instance.name
-#   charset   = "utf8"
-#   collation = "utf8_general_ci"
-# }
+# newstories
+resource "google_sql_database" "newstories" {
+  name      = "newstories"
+  instance  = google_sql_database_instance.newstories_instance.name
+  charset   = "utf8"
+  collation = "utf8_general_ci"
+}
 
-# resource "google_sql_database_instance" "newstories_instance" {
-#   name   = "newstories-instance-${random_id.db_name_suffix.hex}"
-#   region = var.region
-#   database_version = "MYSQL_8_0"
+resource "google_sql_database_instance" "newstories_instance" {
+  name   = "newstories-instance-${random_id.db_name_suffix.hex}"
+  region = var.region
+  database_version = "MYSQL_8_0"
 
-#   settings {
-#     tier              = var.db_tier
-#     disk_size         = var.db_disk_size
-#   }
+  depends_on = [google_service_networking_connection.private_vpc_connection]
+
+  settings {
+    tier              = var.db_tier
+    disk_size         = var.db_disk_size
+
+    ip_configuration {
+      # assign public ip
+      ipv4_enabled = true
+      # assign private ip
+      private_network = data.google_compute_network.vpc.id
+
+      dynamic "authorized_networks" {
+        for_each = var.personal_cidr_blocks
+        iterator = cidr
+        
+        content {
+          value = cidr.value
+        }
+      }
+    }
+  }
   
-#   deletion_protection = "false"
-# }
+  deletion_protection = "false"
+}
 
-# resource "google_sql_user" "newstories_user" {
-#   name     = var.db_username
-#   instance = google_sql_database_instance.newstories_instance.name
-#   # host = "%"
-#   password = var.db_password
-# }
+resource "google_sql_user" "newstories_user" {
+  name     = var.db_username
+  instance = google_sql_database_instance.newstories_instance.name
+  # host = "%"
+  password = var.db_password
+}
 
 
-# # notifier
-# resource "google_sql_database" "notifier" {
-#   name      = "notifier"
-#   instance  = google_sql_database_instance.notifier_instance.name
-#   charset   = "utf8"
-#   collation = "utf8_general_ci"
-# }
+# notifier
+resource "google_sql_database" "notifier" {
+  name      = "notifier"
+  instance  = google_sql_database_instance.notifier_instance.name
+  charset   = "utf8"
+  collation = "utf8_general_ci"
+}
 
-# resource "google_sql_database_instance" "notifier_instance" {
-#   name   = "notifier-instance-${random_id.db_name_suffix.hex}"
-#   region = var.region
-#   database_version = "MYSQL_8_0"
+resource "google_sql_database_instance" "notifier_instance" {
+  name   = "notifier-instance-${random_id.db_name_suffix.hex}"
+  region = var.region
+  database_version = "MYSQL_8_0"
 
-#   settings {
-#     tier              = var.db_tier
-#     disk_size         = var.db_disk_size
-#   }
+  depends_on = [google_service_networking_connection.private_vpc_connection]
+
+  settings {
+    tier              = var.db_tier
+    disk_size         = var.db_disk_size
+
+    ip_configuration {
+      # assign public ip
+      ipv4_enabled = true
+      # assign private ip
+      private_network = data.google_compute_network.vpc.id
+
+      dynamic "authorized_networks" {
+        for_each = var.personal_cidr_blocks
+        iterator = cidr
+        
+        content {
+          value = cidr.value
+        }
+      }
+    }
+  }
   
-#   deletion_protection = "false"
-# }
+  deletion_protection = "false"
+}
 
-# resource "google_sql_user" "notifier_user" {
-#   name     = var.db_username
-#   instance = google_sql_database_instance.notifier_instance.name
-#   # host = "%"
-#   password = var.db_password
-# }
+resource "google_sql_user" "notifier_user" {
+  name     = var.db_username
+  instance = google_sql_database_instance.notifier_instance.name
+  # host = "%"
+  password = var.db_password
+}
