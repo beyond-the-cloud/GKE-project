@@ -52,12 +52,14 @@ resource "helm_release" "nginx_ingress" {
 
   repository = "https://charts.bitnami.com/bitnami"
   chart      = "nginx-ingress-controller"
-}
 
-# get ingress controller ip
-resource "null_resource" "ingress_controller_ip" {
-  provisioner "local-exec" {
-    command = "kubectl get svc nginx-ingress-controller -o jsonpath=\"{.status.loadBalancer.ingress[0].ip}\""
+  set {
+    name  = "controller.service.type"
+    value = "LoadBalancer"
+  }
+  set {
+    name  = "controller.service.loadBalancerIP"
+    value = "35.227.22.228"
   }
 }
 
@@ -106,15 +108,4 @@ data "kubectl_filename_list" "manifests_metrics_server" {
 resource "kubectl_manifest" "metrics_server" {
     count     = length(data.kubectl_filename_list.manifests_metrics_server.matches)
     yaml_body = file(element(data.kubectl_filename_list.manifests_metrics_server.matches, count.index))
-}
-
-provider "kubernetes" {
-  config_path    = "~/.kube/config"
-}
-
-# create monitoring namespace
-resource "kubernetes_namespace" "ns_monitoring" {
-  metadata {
-    name = "monitoring"
-  }
 }
