@@ -1,0 +1,28 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: webapp-gateway
+  namespace: istio-system
+spec:
+  selector:
+    app: istio-ingressgateway
+  servers:
+  - port:
+      number: 80
+      name: http
+      protocol: HTTP
+    hosts:
+    - gke.prod.bh7cw.me
+    - gke.prod.xinyuzhang.me
+  #   tls:
+  #     httpsRedirect: true # sends 301 redirect for http requests
+  # - port:
+  #     number: 443
+  #     name: https-443
+  #     protocol: HTTPS
+  #   hosts:
+  #   - gke.prod.bh7cw.me
+  #   - gke.prod.xinyuzhang.me
+  #   tls:
+  #     mode: SIMPLE # enables HTTPS on this port
+  #     credentialName: webapp-tls # fetches certs from Kubernetes secret
