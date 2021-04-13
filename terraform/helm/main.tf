@@ -46,22 +46,22 @@ resource "helm_release" "elastic_search" {
   chart      = "elasticsearch"
 }
 
-# ingress-controller
-resource "helm_release" "nginx_ingress" {
-  name       = "nginx-ingress-controller"
+# # ingress-controller
+# resource "helm_release" "nginx_ingress" {
+#   name       = "nginx-ingress-controller"
 
-  repository = "https://charts.bitnami.com/bitnami"
-  chart      = "nginx-ingress-controller"
+#   repository = "https://charts.bitnami.com/bitnami"
+#   chart      = "nginx-ingress-controller"
 
-  set {
-    name  = "controller.service.type"
-    value = "LoadBalancer"
-  }
-  set {
-    name  = "controller.service.loadBalancerIP"
-    value = "35.227.22.228"
-  }
-}
+#   set {
+#     name  = "controller.service.type"
+#     value = "LoadBalancer"
+#   }
+#   set {
+#     name  = "controller.service.loadBalancerIP"
+#     value = "35.227.22.228"
+#   }
+# }
 
 # cert-manager crds
 resource "null_resource" "cert_manager_crds" {
@@ -91,15 +91,15 @@ resource "helm_release" "cert_manager" {
   version = "v0.14.1"
 }
 
-# multi-app-ingress
-data "kubectl_filename_list" "manifests_ingress" {
-    pattern = "./manifests/multi-app-ingress.yaml"
-}
+# # multi-app-ingress
+# data "kubectl_filename_list" "manifests_ingress" {
+#     pattern = "./manifests/multi-app-ingress.yaml"
+# }
 
-resource "kubectl_manifest" "ingress" {
-    count     = length(data.kubectl_filename_list.manifests_ingress.matches)
-    yaml_body = file(element(data.kubectl_filename_list.manifests_ingress.matches, count.index))
-}
+# resource "kubectl_manifest" "ingress" {
+#     count     = length(data.kubectl_filename_list.manifests_ingress.matches)
+#     yaml_body = file(element(data.kubectl_filename_list.manifests_ingress.matches, count.index))
+# }
 
 # metrics-server
 data "kubectl_filename_list" "manifests_metrics_server" {
