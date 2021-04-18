@@ -1,6 +1,6 @@
 variable "project_id" {
   type = string
-  default = "corded-terrain-309700"
+  default = "xzhang-csye7125-term-proj"
 }
 
 variable "personal_cidr_blocks" {
