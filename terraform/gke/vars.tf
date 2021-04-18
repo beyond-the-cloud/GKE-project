@@ -45,7 +45,7 @@ variable "release_channel" {
 
 variable "gke_version" {
   type = string
-  default = "1.18.16-gke.302"
+  default = "1.18.16-gke.502"
 }
 
 variable "machine_type" {
