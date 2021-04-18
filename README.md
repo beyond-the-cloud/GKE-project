@@ -4,19 +4,27 @@ Repo for term project using Google Kubernetes Engine (GKE) Cluster and Service M
 
 ## Set up Istio
 
-1. Create `istio-system` namespace
+1. Run Terraform to setup the whole cluster
 
     ```bash
-    kubectl create ns istio-system
+    cd terraform/gke
+    terraform plan
+    terraform apply
     ```
-
-2. Deploy istio helm chart
 
     ```bash
-    helm install istio helm/istio -n istio-system
+    cd terraform/cloudsql
+    terraform plan
+    terraform apply
     ```
 
-3. Set up networking / routing
+    ```bash
+    cd terraform/helm
+    terraform plan
+    terraform apply
+    ```
+
+2. Set up networking / routing
 
     ```bash
     kubectl apply -f helm/app/networking
