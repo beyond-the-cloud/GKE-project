@@ -78,7 +78,7 @@ resource "google_sql_user" "webapp_user" {
 
 # beststories
 resource "google_sql_database" "beststories" {
-  name      = "stories"
+  name      = "beststories"
   instance  = google_sql_database_instance.beststories_instance.name
   charset   = "utf8"
   collation = "utf8_general_ci"
@@ -125,7 +125,7 @@ resource "google_sql_user" "beststories_user" {
 
 # topstories
 resource "google_sql_database" "topstories" {
-  name      = "stories"
+  name      = "topstories"
   instance  = google_sql_database_instance.topstories_instance.name
   charset   = "utf8"
   collation = "utf8_general_ci"
@@ -172,7 +172,7 @@ resource "google_sql_user" "topstories_user" {
 
 # newstories
 resource "google_sql_database" "newstories" {
-  name      = "stories"
+  name      = "newstories"
   instance  = google_sql_database_instance.newstories_instance.name
   charset   = "utf8"
   collation = "utf8_general_ci"
