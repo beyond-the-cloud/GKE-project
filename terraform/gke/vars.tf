@@ -1,6 +1,6 @@
 variable "project_id" {
   type = string
-  default = "corded-terrain-309700"
+  default = "xzhang-csye7125-term-proj"
 }
 
 variable "region" {
@@ -14,7 +14,7 @@ variable "vpc_cidr" {
 }
 
 variable "gke_num_nodes" {
-  default     = 1
+  default     = 2
   description = "the number of gke nodes"
 }
 
