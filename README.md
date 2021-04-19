@@ -1,6 +1,23 @@
 # GKE-project
-
 Repo for term project using Google Kubernetes Engine (GKE) Cluster and Service Mesh-istio
+
+Project Structure:
+.
+├── README.md
+├── helm
+│   ├── app
+│   └── istio
+└── terraform
+    ├── cloudsql
+    ├── gke
+    └── helm
+
+Project Points:
+- Automation
+- Security
+- Proxy
+- mTLS
+- Open Telemetry
 
 ## Set up
 
@@ -38,7 +55,14 @@ Repo for term project using Google Kubernetes Engine (GKE) Cluster and Service M
         --docker-password=PASSWORD
     ```
 
-5. Install other dependencies
+5. Setup Istio
+    ```bash
+    kubectl create ns istio-system
+    helm install istio helm/istio -n istio-system
+    kubectl apply -f helm/istio/addons
+    ```
+
+6. Install other dependencies
 
     ```bash
     cd terraform/helm
@@ -46,7 +70,7 @@ Repo for term project using Google Kubernetes Engine (GKE) Cluster and Service M
     terraform apply
     ```
 
-6. Trigger Jenkins Jobs to deploy `Applications` / `EFK` / `Metrics`
+7. Trigger Jenkins Jobs to deploy `Applications` / `EFK` / `Metrics`
 
     - efk
     - metrics
@@ -58,7 +82,7 @@ Repo for term project using Google Kubernetes Engine (GKE) Cluster and Service M
     curl -X POST -L --user bh7cw:11ab7bb1eea6de884033439a0e251af19e https://jenkins.gke.prod.bh7cw.me/job/JOB_NAME/build
     ```
 
-7. Set up networking / routing
+8. Set up networking / routing
 
     ```bash
     kubectl apply -f helm/app/networking
