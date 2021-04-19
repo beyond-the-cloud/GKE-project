@@ -2,6 +2,7 @@
 Repo for term project using Google Kubernetes Engine (GKE) Cluster and Service Mesh-istio
 
 Project Structure:
+```
 .
 ├── README.md
 ├── helm
@@ -11,8 +12,9 @@ Project Structure:
     ├── cloudsql
     ├── gke
     └── helm
+```
 
-Project Points:
+Project covers:
 - Automation
 - Security
 - Proxy
