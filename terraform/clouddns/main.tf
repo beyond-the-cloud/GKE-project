@@ -10,7 +10,7 @@ data "google_dns_managed_zone" "gke_prod_zone" {
 resource "google_dns_record_set" "gke_prod_resource_recordset" {
   managed_zone = data.google_dns_managed_zone.gke_prod_zone.name
 
-  name         = "gke.prod.xinyuzhang.me."
+  name         = var.dns_record_name
   type         = "A"
   rrdatas      = [var.istio-ingress-gateway-ip]
   ttl          = 60

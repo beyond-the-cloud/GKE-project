@@ -8,6 +8,11 @@ variable "region" {
   default = "us-east1"
 }
 
+variable "dns_record_name" {
+  type = string
+  default = "gke.prod.xinyuzhang.me."
+}
+
 variable "istio-ingress-gateway-ip" {
   type = string
 }
