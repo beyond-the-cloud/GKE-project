@@ -1,7 +1,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
-  name: webapp-dr
+  name: webapp
 spec:
   host: webapp-deployment-svc
   trafficPolicy:  # Envoy configuration

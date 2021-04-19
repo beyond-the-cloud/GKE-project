@@ -1,7 +1,7 @@
 ---
 # Source: crds/crds.yaml
 ---
-apiVersion: apiextensions.k8s.io/v1beta1
+apiVersion: monitoring.kiali.io/v1alpha1beta1
 kind: CustomResourceDefinition
 metadata:
   name: monitoringdashboards.monitoring.kiali.io
@@ -546,7 +546,7 @@ spec:
 ...
 ---
 # Source: kiali-server/templates/dashboards/envoy.yaml
-apiVersion: "monitoring.kiali.io/v1alpha1"
+apiVersion: monitoring.kiali.io/v1alpha1
 kind: MonitoringDashboard
 metadata:
   name: envoy
@@ -607,7 +607,7 @@ spec:
 ...
 ---
 # Source: kiali-server/templates/dashboards/go.yaml
-apiVersion: "monitoring.kiali.io/v1alpha1"
+apiVersion: monitoring.kiali.io/v1alpha1
 kind: MonitoringDashboard
 metadata:
   name: go
@@ -679,7 +679,7 @@ spec:
 ...
 ---
 # Source: kiali-server/templates/dashboards/kiali.yaml
-apiVersion: "monitoring.kiali.io/v1alpha1"
+apiVersion: monitoring.kiali.io/v1alpha1
 kind: MonitoringDashboard
 metadata:
   name: kiali
@@ -728,7 +728,7 @@ spec:
 ...
 ---
 # Source: kiali-server/templates/dashboards/micrometer-1.0.6-jvm-pool.yaml
-apiVersion: "monitoring.kiali.io/v1alpha1"
+apiVersion: monitoring.kiali.io/v1alpha1
 kind: MonitoringDashboard
 metadata:
   name: micrometer-1.0.6-jvm-pool
@@ -776,7 +776,7 @@ spec:
 ...
 ---
 # Source: kiali-server/templates/dashboards/micrometer-1.0.6-jvm.yaml
-apiVersion: "monitoring.kiali.io/v1alpha1"
+apiVersion: monitoring.kiali.io/v1alpha1
 kind: MonitoringDashboard
 metadata:
   name: micrometer-1.0.6-jvm
@@ -846,7 +846,7 @@ spec:
 ...
 ---
 # Source: kiali-server/templates/dashboards/micrometer-1.1-jvm.yaml
-apiVersion: "monitoring.kiali.io/v1alpha1"
+apiVersion: monitoring.kiali.io/v1alpha1
 kind: MonitoringDashboard
 metadata:
   name: micrometer-1.1-jvm
@@ -919,7 +919,7 @@ spec:
 ...
 ---
 # Source: kiali-server/templates/dashboards/microprofile-1.1.yaml
-apiVersion: "monitoring.kiali.io/v1alpha1"
+apiVersion: monitoring.kiali.io/v1alpha1
 kind: MonitoringDashboard
 metadata:
   name: microprofile-1.1
@@ -983,7 +983,7 @@ spec:
 ...
 ---
 # Source: kiali-server/templates/dashboards/microprofile-x.y.yaml
-apiVersion: "monitoring.kiali.io/v1alpha1"
+apiVersion: monitoring.kiali.io/v1alpha1
 kind: MonitoringDashboard
 metadata:
   name: microprofile-x.y
@@ -1026,7 +1026,7 @@ spec:
 ...
 ---
 # Source: kiali-server/templates/dashboards/nodejs.yaml
-apiVersion: "monitoring.kiali.io/v1alpha1"
+apiVersion: monitoring.kiali.io/v1alpha1
 kind: MonitoringDashboard
 metadata:
   name: nodejs
@@ -1090,7 +1090,7 @@ spec:
 ...
 ---
 # Source: kiali-server/templates/dashboards/quarkus.yaml
-apiVersion: "monitoring.kiali.io/v1alpha1"
+apiVersion: monitoring.kiali.io/v1alpha1
 kind: MonitoringDashboard
 metadata:
   name: quarkus
@@ -1128,7 +1128,7 @@ spec:
 ...
 ---
 # Source: kiali-server/templates/dashboards/springboot-jvm-pool.yaml
-apiVersion: "monitoring.kiali.io/v1alpha1"
+apiVersion: monitoring.kiali.io/v1alpha1
 kind: MonitoringDashboard
 metadata:
   name: springboot-jvm-pool
@@ -1149,7 +1149,7 @@ spec:
 ...
 ---
 # Source: kiali-server/templates/dashboards/springboot-jvm.yaml
-apiVersion: "monitoring.kiali.io/v1alpha1"
+apiVersion: monitoring.kiali.io/v1alpha1
 kind: MonitoringDashboard
 metadata:
   name: springboot-jvm
@@ -1170,7 +1170,7 @@ spec:
 ...
 ---
 # Source: kiali-server/templates/dashboards/springboot-tomcat.yaml
-apiVersion: "monitoring.kiali.io/v1alpha1"
+apiVersion: monitoring.kiali.io/v1alpha1
 kind: MonitoringDashboard
 metadata:
   name: springboot-tomcat
@@ -1191,7 +1191,7 @@ spec:
 ...
 ---
 # Source: kiali-server/templates/dashboards/thorntail.yaml
-apiVersion: "monitoring.kiali.io/v1alpha1"
+apiVersion: monitoring.kiali.io/v1alpha1
 kind: MonitoringDashboard
 metadata:
   name: thorntail
@@ -1218,7 +1218,7 @@ spec:
 ...
 ---
 # Source: kiali-server/templates/dashboards/tomcat.yaml
-apiVersion: "monitoring.kiali.io/v1alpha1"
+apiVersion: monitoring.kiali.io/v1alpha1
 kind: MonitoringDashboard
 metadata:
   name: tomcat
@@ -1290,7 +1290,7 @@ spec:
 ...
 ---
 # Source: kiali-server/templates/dashboards/vertx-client.yaml
-apiVersion: "monitoring.kiali.io/v1alpha1"
+apiVersion: monitoring.kiali.io/v1alpha1
 kind: MonitoringDashboard
 metadata:
   name: vertx-client
@@ -1355,7 +1355,7 @@ spec:
 ...
 ---
 # Source: kiali-server/templates/dashboards/vertx-eventbus.yaml
-apiVersion: "monitoring.kiali.io/v1alpha1"
+apiVersion: monitoring.kiali.io/v1alpha1
 kind: MonitoringDashboard
 metadata:
   name: vertx-eventbus
@@ -1419,7 +1419,7 @@ spec:
 ...
 ---
 # Source: kiali-server/templates/dashboards/vertx-jvm.yaml
-apiVersion: "monitoring.kiali.io/v1alpha1"
+apiVersion: monitoring.kiali.io/v1alpha1
 kind: MonitoringDashboard
 metadata:
   name: vertx-jvm
@@ -1440,7 +1440,7 @@ spec:
 ...
 ---
 # Source: kiali-server/templates/dashboards/vertx-pool.yaml
-apiVersion: "monitoring.kiali.io/v1alpha1"
+apiVersion: monitoring.kiali.io/v1alpha1
 kind: MonitoringDashboard
 metadata:
   name: vertx-pool
@@ -1513,7 +1513,7 @@ spec:
 ...
 ---
 # Source: kiali-server/templates/dashboards/vertx-server.yaml
-apiVersion: "monitoring.kiali.io/v1alpha1"
+apiVersion: monitoring.kiali.io/v1alpha1
 kind: MonitoringDashboard
 metadata:
   name: vertx-server
