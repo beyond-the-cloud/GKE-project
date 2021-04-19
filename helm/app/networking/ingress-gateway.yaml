@@ -26,3 +26,30 @@ spec:
   #   tls:
   #     mode: SIMPLE # enables HTTPS on this port
   #     credentialName: webapp-tls # fetches certs from Kubernetes secret
+
+---
+
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: webapp-gateway-rule
+  namespace: default
+spec:
+  hosts:
+  - webapp-deployment-svc.default.svc.cluster.local
+  - gke.prod.bh7cw.me
+  - gke.prod.xinyuzhang.me
+  gateways:
+  - istio-system/webapp-gateway
+  http:
+  - match:
+    - uri:
+        prefix: /webapp
+    - uri:
+        prefix: /actuator
+    route:
+    - destination:
+        port:
+          number: 80 # can be omitted if it's the only port for reviews
+        host: webapp-deployment-svc.default.svc.cluster.local
+      weight: 100
