@@ -14,7 +14,7 @@ variable "vpc_cidr" {
 }
 
 variable "gke_num_nodes" {
-  default     = 2
+  default     = 1
   description = "the number of gke nodes"
 }
 
