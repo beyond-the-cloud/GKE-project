@@ -15,6 +15,13 @@ resource "kubernetes_namespace" "istio-system" {
   }
 }
 
+# istio
+resource "helm_release" "istio" {
+    name       = "istio"
+    chart      = "../../helm/istio"
+    namespace  = "istio-system"
+}
+
 # monitoring
 resource "kubernetes_namespace" "monitoring" {
   metadata {
@@ -126,11 +133,4 @@ data "kubectl_filename_list" "manifests_metrics_server" {
 resource "kubectl_manifest" "metrics_server" {
     count     = length(data.kubectl_filename_list.manifests_metrics_server.matches)
     yaml_body = file(element(data.kubectl_filename_list.manifests_metrics_server.matches, count.index))
-}
-
-# istio
-resource "helm_release" "istio" {
-    name       = "istio"
-    chart      = "../../helm/istio"
-    namespace  = "istio-system"
 }
