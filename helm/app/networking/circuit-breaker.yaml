@@ -1,0 +1,19 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: webapp-dr
+spec:
+  host: webapp-deployment-svc
+  trafficPolicy:  # Envoy configuration
+    connectionPool:
+      tcp:
+        maxConnections: 1  # number of clients envoy will allow to webapp at any given time
+      http:
+        http1MaxPendingRequests: 1
+        maxRequestsPerConnection: 1
+    # scan webapp-deployment-svc every second. if consecutive 5xx error > 1, remove webapp from the pool for 5 mins
+    outlierDetection:
+      interval: 1s
+      consecutiveErrors: 1
+      baseEjectionTime: 5m
+      maxEjectionPercent: 100
