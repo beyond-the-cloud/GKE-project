@@ -32,6 +32,9 @@ resource "kubernetes_namespace" "monitoring" {
 # kafka
 resource "helm_release" "kafka" {
   name       = "kafka"
+  depends_on = [
+    helm_release.istio
+  ]
 
   repository = "https://charts.bitnami.com/bitnami"
   chart      = "kafka"
@@ -66,6 +69,9 @@ resource "helm_release" "kafka" {
 # elastic search
 resource "helm_release" "elastic_search" {
   name       = "elasticsearch"
+  depends_on = [
+    helm_release.istio
+  ]
 
   repository = "https://helm.elastic.co"
   chart      = "elasticsearch"
