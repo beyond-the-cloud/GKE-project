@@ -60,10 +60,6 @@ resource "kubernetes_namespace" "logging" {
 # monitoring
 resource "kubernetes_namespace" "monitoring" {
   metadata {
-    labels = {
-      istio-injection = "enabled"
-    }
-
     name = "monitoring"
   }
 }
