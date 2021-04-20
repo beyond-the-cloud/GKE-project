@@ -8,6 +8,11 @@ provider "kubernetes" {
   config_path    = "~/.kube/config"
 }
 
+provider "google" {
+  project = var.project_id
+  region  = var.region
+}
+
 # istio-system
 resource "kubernetes_namespace" "istio-system" {
   metadata {
@@ -26,14 +31,6 @@ resource "helm_release" "istio" {
 resource "null_resource" "kap-istio-addons" {
   provisioner "local-exec" {
     command = "kubectl apply -f ../../helm/istio/addons"
-    interpreter = ["/bin/bash", "-c"]
-  }
-}
-
-# istio addons
-resource "null_resource" "kap-istio-addons-extra" {
-  provisioner "local-exec" {
-    command = "kubectl apply -f ../../helm/istio/addons/extras"
     interpreter = ["/bin/bash", "-c"]
   }
 }
@@ -62,6 +59,26 @@ resource "kubernetes_namespace" "monitoring" {
   metadata {
     name = "monitoring"
   }
+}
+
+data "kubernetes_service" "istio_ingressgateway" {
+  metadata {
+    name = "istio-ingressgateway"
+    namespace = "istio-system"
+  }
+}
+
+data "google_dns_managed_zone" "gke_prod_zone" {
+  name        = var.zone_name
+}
+
+resource "google_dns_record_set" "gke_prod_resource_recordset" {
+  name         = var.dns_record_name
+  type         = "A"
+  ttl          = 60
+
+  managed_zone = data.google_dns_managed_zone.gke_prod_zone.name
+  rrdatas      = [data.kubernetes_service.istio_ingressgateway.status.0.load_balancer.0.ingress.0.ip]
 }
 
 # kafka
