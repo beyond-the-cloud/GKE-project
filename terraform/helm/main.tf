@@ -22,9 +22,48 @@ resource "helm_release" "istio" {
     namespace  = "istio-system"
 }
 
+# istio addons
+resource "null_resource" "kap-istio-addons" {
+  provisioner "local-exec" {
+    command = "kubectl apply -f ../../helm/istio/addons"
+    interpreter = ["/bin/bash", "-c"]
+  }
+}
+
+# istio addons
+resource "null_resource" "kap-istio-addons-extra" {
+  provisioner "local-exec" {
+    command = "kubectl apply -f ../../helm/istio/addons/extras"
+    interpreter = ["/bin/bash", "-c"]
+  }
+}
+
+# add label to default namespace
+resource "null_resource" "label-default-ns" {
+  provisioner "local-exec" {
+    command = "kubectl label namespace default istio-injection=enabled"
+    interpreter = ["/bin/bash", "-c"]
+  }
+}
+
+# logging
+resource "kubernetes_namespace" "logging" {
+  metadata {
+    labels = {
+      istio-injection = "enabled"
+    }
+
+    name = "logging"
+  }
+}
+
 # monitoring
 resource "kubernetes_namespace" "monitoring" {
   metadata {
+    labels = {
+      istio-injection = "enabled"
+    }
+
     name = "monitoring"
   }
 }
