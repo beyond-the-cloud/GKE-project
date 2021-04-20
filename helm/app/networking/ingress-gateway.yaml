@@ -16,16 +16,16 @@ spec:
     - gke.prod.xinyuzhang.me
   #   tls:
   #     httpsRedirect: true # sends 301 redirect for http requests
-  # - port:
-  #     number: 443
-  #     name: https-443
-  #     protocol: HTTPS
-  #   hosts:
-  #   - gke.prod.bh7cw.me
-  #   - gke.prod.xinyuzhang.me
-  #   tls:
-  #     mode: SIMPLE # enables HTTPS on this port
-  #     credentialName: webapp-tls # fetches certs from Kubernetes secret
+  - port:
+      number: 443
+      name: https-443
+      protocol: HTTPS
+    hosts:
+    - gke.prod.bh7cw.me
+    - gke.prod.xinyuzhang.me
+    tls:
+      mode: SIMPLE # enables HTTPS on this port
+      credentialName: telemetry-gw-cert # fetches certs from Kubernetes secret
 
 ---
 
