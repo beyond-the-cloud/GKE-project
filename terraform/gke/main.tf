@@ -78,3 +78,11 @@ resource "google_container_node_pool" "primary_nodes" {
     }
   }
 }
+
+# retrive gke credential
+resource "null_resource" "load-gke-cred" {
+  provisioner "local-exec" {
+    command = "gcloud container clusters get-credentials ${google_container_cluster.primary.name} --region ${var.region}"
+    interpreter = ["/bin/bash", "-c"]
+  }
+}
