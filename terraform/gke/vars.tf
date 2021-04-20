@@ -1,11 +1,11 @@
 variable "project_id" {
   type = string
-  default = "xzhang-csye7125-term-proj"
+  default = "corded-terrain-309700"
 }
 
 variable "region" {
   type = string
-  default = "us-east1"
+  default = "us-east4"
 }
 
 variable "vpc_cidr" {
