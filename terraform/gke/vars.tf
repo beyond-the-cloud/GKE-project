@@ -1,6 +1,6 @@
 variable "project_id" {
   type = string
-  default = "corded-terrain-309700"
+  default = "corded-terrain-309700" # "xzhang-csye7125-term-proj"
 }
 
 variable "region" {
