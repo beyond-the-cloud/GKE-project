@@ -5,7 +5,7 @@ variable "project_id" {
 
 variable "region" {
   type = string
-  default = "us-east4"
+  default = "us-east1"
 }
 
 variable "vpc_cidr" {
@@ -14,7 +14,7 @@ variable "vpc_cidr" {
 }
 
 variable "gke_num_nodes" {
-  default     = 2
+  default     = 3
   description = "the number of gke nodes"
 }
 
@@ -50,5 +50,5 @@ variable "gke_version" {
 
 variable "machine_type" {
   type = string
-  default = "e2-standard-4"
+  default = "e2-standard-2"
 }
