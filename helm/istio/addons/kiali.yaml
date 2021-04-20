@@ -1,25 +1,4 @@
 ---
-# Source: crds/crds.yaml
----
-apiVersion: monitoring.kiali.io/v1alpha1beta1
-kind: CustomResourceDefinition
-metadata:
-  name: monitoringdashboards.monitoring.kiali.io
-spec:
-  group: monitoring.kiali.io
-  names:
-    kind: MonitoringDashboard
-    listKind: MonitoringDashboardList
-    plural: monitoringdashboards
-    singular: monitoringdashboard
-  scope: Namespaced
-  versions:
-  - name: v1alpha1
-    served: true
-    storage: true
-...
-
----
 # Source: kiali-server/templates/serviceaccount.yaml
 apiVersion: v1
 kind: ServiceAccount
