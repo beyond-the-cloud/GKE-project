@@ -10,7 +10,7 @@ variable "personal_cidr_blocks" {
 
 variable "region" {
   type = string
-  default = "us-east4"
+  default = "us-east1"
 }
 
 variable "vpc_cidr" {
