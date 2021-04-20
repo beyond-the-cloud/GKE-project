@@ -172,15 +172,6 @@ resource "helm_release" "elastic_search" {
 # }
 
 # metrics-server
-# data "kubectl_filename_list" "manifests_metrics_server" {
-#     pattern = "./manifests/metrics-server.yaml"
-# }
-# resource "kubectl_manifest" "metrics_server" {
-#     count     = length(data.kubectl_filename_list.manifests_metrics_server.matches)
-#     yaml_body = file(element(data.kubectl_filename_list.manifests_metrics_server.matches, count.index))
-# }
-
-# metrics-server
 data "kubectl_filename_list" "manifests_metrics_server" {
     pattern = "./manifests/metrics-server.yaml"
 }
