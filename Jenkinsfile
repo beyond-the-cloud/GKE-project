@@ -13,7 +13,7 @@ pipeline {
         stage('DeployMetrics') {
             steps {
                 echo 'Deploying the Metrics...'
-                build job: 'DeployWebapp'
+                build job: 'DeployMetrics'
             }
         }
         stage('DeployWebapp') {
@@ -25,13 +25,13 @@ pipeline {
         stage('DeployProcessorWebapp') {
             steps {
                 echo 'Deploying the ProcessorWebapp...'
-                build job: 'DeployWebapp'
+                build job: 'DeployProcessorWebapp'
             }
         }
         stage('DeployNotifierWebapp') {
             steps {
                 echo 'Deploying the NotifierWebapp...'
-                build job: 'DeployWebapp'
+                build job: 'DeployNotifierWebapp'
             }
         }
     }
