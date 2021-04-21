@@ -1,25 +1,35 @@
 # GKE-project
+
 Repo for term project using Google Kubernetes Engine (GKE) Cluster and Service Mesh-istio
 
-Project Structure:
-```
-.
-├── README.md
-├── helm
-│   ├── app
-│   └── istio
-└── terraform
-    ├── cloudsql
-    ├── gke
-    └── helm
-```
+## Project Structure
 
-Project covers:
-- Automation
-- Security
-- Proxy
-- mTLS
-- Open Telemetry
+    .
+    ├── README.md
+    ├── helm/
+    │   ├── app/
+    │   │   ├── demo/
+    │   │   ├── networking/
+    │   │   ├── platform/
+    │   │   └── security/
+    │   └── istio/
+    │   │   ├── addons/
+    │   │   ├── charts/
+    │   │   └── values.yaml
+    └── terraform/
+        ├── cloudsql/
+        ├── gke/
+        └── helm/
+
+## Project covers
+
+1. GCP / GKE
+2. Automation
+3. Infrastructure as Code
+4. Istio
+    1. Traffic Management
+    2. Observability
+    3. Security
 
 ## Set up
 
