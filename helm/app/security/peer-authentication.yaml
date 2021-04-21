@@ -4,5 +4,8 @@ metadata:
   name: "peer-auth-policy"
   namespace: default
 spec:
+  selector:
+    matchLabels:
+      app: webapp-deployment
   mtls:
     mode: STRICT

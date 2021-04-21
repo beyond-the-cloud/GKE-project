@@ -1,0 +1,55 @@
+---
+apiVersion: "networking.istio.io/v1alpha3"
+kind: "DestinationRule"
+metadata:
+  name: "dr-enable-mtls-webapp"
+  namespace: default
+spec:
+  host: webapp-deployment-svc.default.svc.cluster.local
+  trafficPolicy:
+    tls:
+      mode: ISTIO_MUTUAL
+---
+apiVersion: "networking.istio.io/v1alpha3"
+kind: "DestinationRule"
+metadata:
+  name: "dr-enable-mtls-notifier"
+  namespace: default
+spec:
+  host: notifier-webapp-deployment-svc.default.svc.cluster.local
+  trafficPolicy:
+    tls:
+      mode: ISTIO_MUTUAL
+---
+apiVersion: "networking.istio.io/v1alpha3"
+kind: "DestinationRule"
+metadata:
+  name: "dr-enable-mtls-processor-best"
+  namespace: default
+spec:
+  host: processor-webapp-best-deployment-svc.default.svc.cluster.local
+  trafficPolicy:
+    tls:
+      mode: ISTIO_MUTUAL
+---
+apiVersion: "networking.istio.io/v1alpha3"
+kind: "DestinationRule"
+metadata:
+  name: "dr-enable-mtls-processor-new"
+  namespace: default
+spec:
+  host: processor-webapp-new-deployment-svc.default.svc.cluster.local
+  trafficPolicy:
+    tls:
+      mode: ISTIO_MUTUAL
+---
+apiVersion: "networking.istio.io/v1alpha3"
+kind: "DestinationRule"
+metadata:
+  name: "dr-enable-mtls-processor-top"
+  namespace: default
+spec:
+  host: processor-webapp-top-deployment-svc.default.svc.cluster.local
+  trafficPolicy:
+    tls:
+      mode: ISTIO_MUTUAL
