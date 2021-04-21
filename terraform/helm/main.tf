@@ -27,6 +27,14 @@ resource "helm_release" "istio" {
     namespace  = "istio-system"
 }
 
+# istio addons kiali crds
+resource "null_resource" "kap-istio-addons-crds" {
+  provisioner "local-exec" {
+    command = "kubectl apply -f ../../helm/istio/addons/crds.yaml"
+    interpreter = ["/bin/bash", "-c"]
+  }
+}
+
 # istio addons
 resource "null_resource" "kap-istio-addons" {
   provisioner "local-exec" {
