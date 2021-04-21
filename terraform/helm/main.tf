@@ -38,7 +38,7 @@ resource "null_resource" "kap-istio-addons" {
 # add label to default namespace
 resource "null_resource" "label-default-ns" {
   provisioner "local-exec" {
-    command = "kubectl label namespace default istio-injection=enabled"
+    command = "kubectl label namespace default istio-injection=enabled --overwrite=true"
     interpreter = ["/bin/bash", "-c"]
   }
 }
@@ -66,6 +66,10 @@ data "kubernetes_service" "istio_ingressgateway" {
     name = "istio-ingressgateway"
     namespace = "istio-system"
   }
+
+  depends_on = [
+    helm_release.istio
+  ]
 }
 
 data "google_dns_managed_zone" "gke_prod_zone" {
