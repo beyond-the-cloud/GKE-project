@@ -158,33 +158,52 @@ resource "helm_release" "elastic_search" {
 #   }
 # }
 
-# # cert-manager crds
-# resource "null_resource" "cert_manager_crds" {
-#   provisioner "local-exec" {
-#     command = "kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v0.14.1/cert-manager.crds.yaml"
-#   }
-# }
+# cert-manager crds
+resource "null_resource" "cert_manager_crds" {
+  provisioner "local-exec" {
+    command = "kubectl apply --validate=false -f https://github.com/jetstack/cert-manager/releases/download/v0.14.1/cert-manager.crds.yaml"
+  }
+}
 
-# # letsencrypt-staging/letsencrypt-prod
-# data "kubectl_file_documents" "manifests_letsencrypt" {
-#     content = file("./manifests/letsencrypt-staging.yaml")
-#     # content = file("./manifests/letsencrypt-prod.yaml")
-# }
-# resource "kubectl_manifest" "letsencrypt" {
-#     count     = length(data.kubectl_file_documents.manifests_letsencrypt.documents)
-#     yaml_body = element(data.kubectl_file_documents.manifests_letsencrypt.documents, count.index)
-# }
+# cert-manager
+resource "helm_release" "cert_manager" {
+  name       = "cert-manager"
 
-# # cert-manager
-# resource "helm_release" "cert_manager" {
-#   name       = "cert-manager"
+  repository = "https://charts.jetstack.io"
+  chart      = "cert-manager"
+  namespace = "cert-manager"
+  create_namespace = true
+  version = "v0.14.0"
+}
 
-#   repository = "https://charts.jetstack.io"
-#   chart      = "cert-manager"
-#   namespace = "cert-manager"
-#   create_namespace = true
-#   version = "v0.14.1"
-# }
+# letsencrypt-staging/letsencrypt-prod
+data "kubectl_file_documents" "manifests_letsencrypt" {
+    content = file("./manifests/letsencrypt-staging.yaml")
+    # content = file("./manifests/letsencrypt-prod.yaml")
+}
+
+resource "kubectl_manifest" "letsencrypt" {
+  count     = length(data.kubectl_file_documents.manifests_letsencrypt.documents)
+  yaml_body = element(data.kubectl_file_documents.manifests_letsencrypt.documents, count.index)
+
+  depends_on = [
+    helm_release.cert_manager
+  ]
+}
+
+# Issue a certficate
+data "kubectl_file_documents" "manifests_certificate" {
+    content = file("./manifests/certificate.yaml")
+}
+
+resource "kubectl_manifest" "certificate" {
+  count     = length(data.kubectl_file_documents.manifests_certificate.documents)
+  yaml_body = element(data.kubectl_file_documents.manifests_certificate.documents, count.index)
+
+  depends_on = [
+    kubectl_manifest.letsencrypt
+  ]
+}
 
 # # multi-app-ingress
 # data "kubectl_filename_list" "manifests_ingress" {
