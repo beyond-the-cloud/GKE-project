@@ -20,7 +20,7 @@ variable "vpc_cidr" {
 
 variable "db_tier" {
   type = string
-  default = "db-n1-standard-2"
+  default = "db-n1-standard-4"
 }
 
 variable "db_disk_size" {
