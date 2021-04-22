@@ -53,3 +53,36 @@ spec:
   trafficPolicy:
     tls:
       mode: ISTIO_MUTUAL
+---
+apiVersion: "networking.istio.io/v1alpha3"
+kind: "DestinationRule"
+metadata:
+  name: "dr-enable-mtls-processor-top"
+  namespace: default
+spec:
+  host: elasticsearch-master.default.svc.cluster.local
+  trafficPolicy:
+    tls:
+      mode: ISTIO_MUTUAL
+---
+apiVersion: "networking.istio.io/v1alpha3"
+kind: "DestinationRule"
+metadata:
+  name: "dr-enable-mtls-processor-top"
+  namespace: default
+spec:
+  host: elasticsearch-master-headless.default.svc.cluster.local
+  trafficPolicy:
+    tls:
+      mode: ISTIO_MUTUAL
+---
+apiVersion: "networking.istio.io/v1alpha3"
+kind: "DestinationRule"
+metadata:
+  name: "dr-enable-mtls-processor-top"
+  namespace: default
+spec:
+  host: prometheus-prometheus-elasticsearch-exporter.default.svc.cluster.local
+  trafficPolicy:
+    tls:
+      mode: ISTIO_MUTUAL
