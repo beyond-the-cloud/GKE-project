@@ -25,10 +25,9 @@ spec:
     - gke.prod.xinyuzhang.me
     tls:
       mode: SIMPLE # enables HTTPS on this port
+      # mode  : MUTUAL
       credentialName: istio-ingress-gateway-crt # fetches certs from Kubernetes secret
-
 ---
-
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
@@ -53,3 +52,258 @@ spec:
           number: 80 # can be omitted if it's the only port for reviews
         host: webapp-deployment-svc.default.svc.cluster.local
       weight: 100
+
+---
+
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: grafana-gateway
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 443
+      name: https-grafana
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      credentialName: istio-ingress-gateway-crt
+    hosts:
+    - "grafana.gke.prod.xinyuzhang.me"
+    - "grafana.gke.prod.bh7cw.me"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: grafana-vs
+  namespace: monitoring
+spec:
+  hosts:
+  - "grafana.gke.prod.xinyuzhang.me"
+  - "grafana.gke.prod.bh7cw.me"
+  gateways:
+  - istio-system/grafana-gateway
+  http:
+  - route:
+    - destination:
+        host: prometheus-grafana.monitoring.svc.cluster.local
+        port:
+          number: 80
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: grafana
+  namespace: monitoring
+spec:
+  host: prometheus-grafana.monitoring.svc.cluster.local
+  trafficPolicy:
+    tls:
+      mode: DISABLE
+
+---
+
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: kibana-gateway
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 443
+      name: https-kibana
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      credentialName: istio-ingress-gateway-crt
+    hosts:
+    - "kibana.gke.prod.xinyuzhang.me"
+    - "kibana.gke.prod.bh7cw.me"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: kibana-vs
+  namespace: logging
+spec:
+  hosts:
+  - "kibana.gke.prod.xinyuzhang.me"
+  - "kibana.gke.prod.bh7cw.me"
+  gateways:
+  - istio-system/kibana-gateway
+  http:
+  - route:
+    - destination:
+        host: kibana.logging.svc.cluster.local
+        port:
+          number: 5601
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: kibana
+  namespace: logging
+spec:
+  host: kibana.logging.svc.cluster.local
+  trafficPolicy:
+    tls:
+      mode: DISABLE
+
+---
+
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: kiali-gateway
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 443
+      name: https-kiali
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      credentialName: istio-ingress-gateway-crt
+    hosts:
+    - "kiali.gke.prod.xinyuzhang.me"
+    - "kiali.gke.prod.bh7cw.me"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: kiali-vs
+  namespace: istio-system
+spec:
+  hosts:
+  - "kiali.gke.prod.xinyuzhang.me"
+  - "kiali.gke.prod.bh7cw.me"
+  gateways:
+  - istio-system/kiali-gateway
+  http:
+  - route:
+    - destination:
+        host: kiali.istio-system.svc.cluster.local
+        port:
+          number: 20001
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: kiali
+  namespace: istio-system
+spec:
+  host: kiali.istio-system.svc.cluster.local
+  trafficPolicy:
+    tls:
+      mode: DISABLE
+
+---
+
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: tracing-gateway
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 443
+      name: https-tracing
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      credentialName: istio-ingress-gateway-crt
+    hosts:
+    - "tracing.gke.prod.xinyuzhang.me"
+    - "tracing.gke.prod.bh7cw.me"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: tracing-vs
+  namespace: istio-system
+spec:
+  hosts:
+  - "tracing.gke.prod.xinyuzhang.me"
+  - "tracing.gke.prod.bh7cw.me"
+  gateways:
+  - istio-system/tracing-gateway
+  http:
+  - route:
+    - destination:
+        host: tracing.istio-system.svc.cluster.local
+        port:
+          number: 80
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: tracing
+  namespace: istio-system
+spec:
+  host: tracing.istio-system.svc.cluster.local
+  trafficPolicy:
+    tls:
+      mode: DISABLE
+
+---
+
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: istio-grafana-gateway
+  namespace: istio-system
+spec:
+  selector:
+    istio: ingressgateway
+  servers:
+  - port:
+      number: 443
+      name: https-istio-grafana
+      protocol: HTTPS
+    tls:
+      mode: SIMPLE
+      credentialName: istio-ingress-gateway-crt
+    hosts:
+    - "istio-grafana.gke.prod.xinyuzhang.me"
+    - "istio-grafana.gke.prod.bh7cw.me"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: istio-grafana-vs
+  namespace: istio-system
+spec:
+  hosts:
+  - "istio-grafana.gke.prod.xinyuzhang.me"
+  - "istio-grafana.gke.prod.bh7cw.me"
+  gateways:
+  - istio-system/istio-grafana-gateway
+  http:
+  - route:
+    - destination:
+        host: grafana.istio-system.svc.cluster.local
+        port:
+          number: 3000
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: istio-grafana
+  namespace: istio-system
+spec:
+  host: grafana.istio-system.svc.cluster.local
+  trafficPolicy:
+    tls:
+      mode: DISABLE

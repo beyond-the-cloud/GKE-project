@@ -3,6 +3,33 @@ provider "google" {
   region  = var.region
 }
 
+// GKE cluster details
+data "google_container_cluster" "my_cluster" {
+  name     = "${var.project_id}-gke"
+  location = var.region
+} 
+
+// GKE node instance group details
+data "google_compute_instance_group" "node_instance_groups" {
+  for_each = toset(data.google_container_cluster.my_cluster.node_pool[0].instance_group_urls)
+  self_link = replace(each.key, "instanceGroupManagers", "instanceGroups")
+}
+
+// GKE node compute instance details
+data "google_compute_instance" "nodes" {
+  for_each = toset(flatten([for x in data.google_compute_instance_group.node_instance_groups : x.instances[*]]))
+  self_link = each.key
+}
+
+// Return the external IPs for all GKE node instances
+output "external_ips" {
+  value = [for x in data.google_compute_instance.nodes : join("/", [x.network_interface[0].access_config[0].nat_ip, "32"])]
+}
+
+locals {
+  external_ips = [for x in data.google_compute_instance.nodes : join("/", [x.network_interface[0].access_config[0].nat_ip, "32"])]
+}
+
 # Get GKE VPC
 data "google_compute_network" "vpc" {
   name = "${var.project_id}-vpc"
@@ -55,7 +82,8 @@ resource "google_sql_database_instance" "webapp_instance" {
       private_network = data.google_compute_network.vpc.id
 
       dynamic "authorized_networks" {
-        for_each = var.personal_cidr_blocks
+        # for_each = var.personal_cidr_blocks
+        for_each = local.external_ips
         iterator = cidr
         
         content {
@@ -102,7 +130,8 @@ resource "google_sql_database_instance" "beststories_instance" {
       private_network = data.google_compute_network.vpc.id
 
       dynamic "authorized_networks" {
-        for_each = var.personal_cidr_blocks
+        # for_each = var.personal_cidr_blocks
+        for_each = local.external_ips
         iterator = cidr
         
         content {
@@ -149,7 +178,8 @@ resource "google_sql_database_instance" "topstories_instance" {
       private_network = data.google_compute_network.vpc.id
 
       dynamic "authorized_networks" {
-        for_each = var.personal_cidr_blocks
+        # for_each = var.personal_cidr_blocks
+        for_each = local.external_ips
         iterator = cidr
         
         content {
@@ -196,7 +226,8 @@ resource "google_sql_database_instance" "newstories_instance" {
       private_network = data.google_compute_network.vpc.id
 
       dynamic "authorized_networks" {
-        for_each = var.personal_cidr_blocks
+        # for_each = var.personal_cidr_blocks
+        for_each = local.external_ips
         iterator = cidr
         
         content {
@@ -243,7 +274,8 @@ resource "google_sql_database_instance" "notifier_instance" {
       private_network = data.google_compute_network.vpc.id
 
       dynamic "authorized_networks" {
-        for_each = var.personal_cidr_blocks
+        # for_each = var.personal_cidr_blocks
+        for_each = local.external_ips
         iterator = cidr
         
         content {

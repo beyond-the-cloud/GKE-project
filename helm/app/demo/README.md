@@ -6,12 +6,36 @@
 
     2. Update `newstories`, `topstories`, `beststories` to terminate istio-proxy after finishing work
 
+## GCP / GKE
+
+    1. Service Account
+
+    2. Secure CloudSQL
+
+    3. Move Jenkins to GCP
+
 ## Traffic Mangement
 
-    1. Traffic spliting
+    1. Ingress Gateway
+    
+    2. Traffic Spliting
 
-    2. Content based routing
+    3. Content Based Routing
 
-    3. Fault injection
+    4. Fault Injection
 
-    4. Circuit breaking
+    5. Circuit Breaking
+
+## Security
+
+    1. `mTLS` - Use Kiali to show tls connections
+
+    2. Ingress Gateway HTTPS - Access applicaiton endpoints through HTTPS
+
+## Observablity
+
+    1. Jaeger / Kiali
+
+    2. Prometheus / Grafana for Istio
+
+    3. Tracing

@@ -13,13 +13,16 @@ Repo for term project using Google Kubernetes Engine (GKE) Cluster and Service M
     │   │   ├── platform/
     │   │   └── security/
     │   └── istio/
-    │   │   ├── addons/
-    │   │   ├── charts/
-    │   │   └── values.yaml
-    └── terraform/
-        ├── cloudsql/
-        ├── gke/
-        └── helm/
+    │       ├── addons/
+    │       ├── charts/
+    │       └── values.yaml
+    ├── terraform/
+    │   ├── cloudsql/
+    │   ├── gke/
+    │   └── helm/
+    └── load-test/
+        ├── content-based.py
+        └── traffic-spliting.py
 
 ## Project covers
 
@@ -28,8 +31,18 @@ Repo for term project using Google Kubernetes Engine (GKE) Cluster and Service M
 3. Infrastructure as Code
 4. Istio
     1. Traffic Management
+        1. Ingress Gateway
+        2. Traffic Spliting
+        3. Content Based Routing
+        4. Fault Injection
+        5. Circuit Breaking
     2. Observability
+        1. Opentelemetry - Jaeger
+        2. Kiali
+        3. Grafana - Istio
     3. Security
+        1. mTLS
+        2. CA - cert-manager
 
 ## Set up
 
