@@ -2,11 +2,11 @@ apiVersion: "security.istio.io/v1beta1"
 kind: "RequestAuthentication"
 metadata:
   name: "jwt-auth"
-  namespace: istio-system
+  namespace: default
 spec:
   selector:
     matchLabels:
-      istio: ingressgateway
+      app: webapp-deployment
   jwtRules:
   - issuer: "testing@secure.istio.io"
     jwksUri: "https://raw.githubusercontent.com/istio/istio/release-1.9/security/tools/jwt/samples/jwks.json"
