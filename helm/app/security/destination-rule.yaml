@@ -57,7 +57,7 @@ spec:
 apiVersion: "networking.istio.io/v1alpha3"
 kind: "DestinationRule"
 metadata:
-  name: "dr-enable-mtls-processor-top"
+  name: "dr-enable-mtls-es"
   namespace: default
 spec:
   host: elasticsearch-master.default.svc.cluster.local
@@ -68,7 +68,7 @@ spec:
 apiVersion: "networking.istio.io/v1alpha3"
 kind: "DestinationRule"
 metadata:
-  name: "dr-enable-mtls-processor-top"
+  name: "dr-enable-mtls-es-headless"
   namespace: default
 spec:
   host: elasticsearch-master-headless.default.svc.cluster.local
@@ -79,10 +79,32 @@ spec:
 apiVersion: "networking.istio.io/v1alpha3"
 kind: "DestinationRule"
 metadata:
-  name: "dr-enable-mtls-processor-top"
+  name: "dr-enable-mtls-prometheus-es"
   namespace: default
 spec:
   host: prometheus-prometheus-elasticsearch-exporter.default.svc.cluster.local
+  trafficPolicy:
+    tls:
+      mode: ISTIO_MUTUAL
+---
+apiVersion: "networking.istio.io/v1alpha3"
+kind: "DestinationRule"
+metadata:
+  name: "dr-enable-mtls-prometheus-kafka"
+  namespace: default
+spec:
+  host: prometheus-prometheus-kafka-exporter.default.svc.cluster.local
+  trafficPolicy:
+    tls:
+      mode: ISTIO_MUTUAL
+---
+apiVersion: "networking.istio.io/v1alpha3"
+kind: "DestinationRule"
+metadata:
+  name: "dr-enable-mtls-prometheus-pg"
+  namespace: default
+spec:
+  host: prometheus-prometheus-pushgateway.default.svc.cluster.local
   trafficPolicy:
     tls:
       mode: ISTIO_MUTUAL
