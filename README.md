@@ -31,7 +31,11 @@ Repo for term project using Google Kubernetes Engine (GKE) Cluster and Service M
 3. Infrastructure as Code
 4. Istio
     1. Traffic Management
-        1. 
+        1. Ingress Gateway
+        2. Traffic Spliting
+        3. Content Based Routing
+        4. Fault Injection
+        5. Circuit Breaking
     2. Observability
         1. Opentelemetry - Jaeger
         2. Kiali
