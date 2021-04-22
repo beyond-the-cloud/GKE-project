@@ -4,6 +4,12 @@ pipeline {
         githubPush()
     }
     stages {
+        stage('DockerHub') {
+            steps {
+                echo 'Creating the DockerHub...'
+                build job: 'DockerHub'
+            }
+        }
         stage('DeployEFK') {
             steps {
                 echo 'Deploying the EFK...'
