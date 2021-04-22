@@ -5,7 +5,7 @@ variable "project_id" {
 
 variable "personal_cidr_blocks" {
   type = set(string)
-  default = ["216.180.87.0/24", "209.6.158.0/24", "0.0.0.0/0"]
+  default = ["216.180.87.0/24", "209.6.158.0/24"]
 }
 
 variable "region" {
@@ -20,7 +20,7 @@ variable "vpc_cidr" {
 
 variable "db_tier" {
   type = string
-  default = "db-f1-micro"
+  default = "db-n1-standard-2"
 }
 
 variable "db_disk_size" {
