@@ -1,0 +1,23 @@
+---
+apiVersion: "security.istio.io/v1beta1"
+kind: "PeerAuthentication"
+metadata:
+  name: "notifier-peer-auth-policy"
+  namespace: "default"
+spec:
+  selector:
+    matchLabels:
+      app: notifier-webapp-deployment
+  mtls:
+    mode: STRICT
+---
+apiVersion: "networking.istio.io/v1alpha3"
+kind: "DestinationRule"
+metadata:
+  name: "destination-rule-notifier-webapp"
+  namespace: default
+spec:
+  host: notifier-webapp-deployment-svc.default.svc.cluster.local
+  trafficPolicy:
+    tls:
+      mode: ISTIO_MUTUAL
