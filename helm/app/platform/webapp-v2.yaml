@@ -29,7 +29,7 @@ spec:
       imagePullSecrets:
       - name: docker-hub
       containers:
-      - image: bboysticker/webapp:v2
+      - image: bh7cw/webapp:v2
         name: webapp
         envFrom:
         - configMapRef:
