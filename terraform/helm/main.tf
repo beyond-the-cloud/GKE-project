@@ -89,23 +89,23 @@ data "google_dns_managed_zone" "gke_prod_zone" {
 }
 
 data "google_dns_managed_zone" "grafana_gke_prod_zone" {
-  name        = "grafana"
+  name        = var.grafana_zone_name
 }
 
 data "google_dns_managed_zone" "kibana_gke_prod_zone" {
-  name        = "kibana"
+  name        = var.kibana_zone_name
 }
 
 data "google_dns_managed_zone" "kiali_gke_prod_zone" {
-  name        = "kiali"
+  name        = var.kiali_zone_name
 }
 
 data "google_dns_managed_zone" "tracing_gke_prod_zone" {
-  name        = "tracing"
+  name        = var.tracing_zone_name
 }
 
 data "google_dns_managed_zone" "istio_grafana_gke_prod_zone" {
-  name        = "istio-grafana"
+  name        = var.istio_grafana_zone_name
 }
 
 locals {
