@@ -31,7 +31,6 @@ resource "helm_release" "istio" {
 resource "null_resource" "kap-istio-addons-crds" {
   provisioner "local-exec" {
     command = "kubectl apply -f ../../helm/istio/addons/crds.yaml"
-    interpreter = ["/bin/bash", "-c"]
   }
 }
 
@@ -39,7 +38,6 @@ resource "null_resource" "kap-istio-addons-crds" {
 resource "null_resource" "kap-istio-addons" {
   provisioner "local-exec" {
     command = "kubectl apply -f ../../helm/istio/addons"
-    interpreter = ["/bin/bash", "-c"]
   }
 
   depends_on = [
@@ -51,7 +49,6 @@ resource "null_resource" "kap-istio-addons" {
 resource "null_resource" "label-default-ns" {
   provisioner "local-exec" {
     command = "kubectl label namespace default istio-injection=enabled --overwrite=true"
-    interpreter = ["/bin/bash", "-c"]
   }
 }
 
@@ -187,7 +184,7 @@ resource "helm_release" "cert_manager" {
 # letsencrypt-staging/letsencrypt-prod
 data "kubectl_file_documents" "manifests_letsencrypt" {
     # content = file("./manifests/letsencrypt-staging.yaml")
-    content = file("./manifests/letsencrypt-prod.yaml")
+    # content = file("./manifests/letsencrypt-prod.yaml")
 }
 
 resource "kubectl_manifest" "letsencrypt" {
