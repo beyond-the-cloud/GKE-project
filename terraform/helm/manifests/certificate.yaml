@@ -23,8 +23,13 @@ spec:
     - client auth
   # At least one of a DNS Name, URI, or IP address is required.
   dnsNames:
-  # - gke.prod.xinyuzhang.me
+  - gke.prod.xinyuzhang.me
   - gke.prod.bh7cw.me
+  - grafana.gke.prod.bh7cw.me
+  - istio-grafana.gke.prod.bh7cw.me
+  - kiali.gke.prod.bh7cw.me
+  - kibana.gke.prod.bh7cw.me
+  - tracing.gke.prod.bh7cw.me
   # Issuer references are always required.
   issuerRef:
     name: letsencrypt-staging  # letsencrypt-prod
