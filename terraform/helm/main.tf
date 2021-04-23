@@ -184,7 +184,7 @@ resource "helm_release" "cert_manager" {
 # letsencrypt-staging/letsencrypt-prod
 data "kubectl_file_documents" "manifests_letsencrypt" {
     # content = file("./manifests/letsencrypt-staging.yaml")
-    # content = file("./manifests/letsencrypt-prod.yaml")
+    content = file("./manifests/letsencrypt-prod.yaml")
 }
 
 resource "kubectl_manifest" "letsencrypt" {
