@@ -88,6 +88,26 @@ data "google_dns_managed_zone" "gke_prod_zone" {
   name        = var.zone_name
 }
 
+data "google_dns_managed_zone" "grafana_gke_prod_zone" {
+  name        = "grafana"
+}
+
+data "google_dns_managed_zone" "kibana_gke_prod_zone" {
+  name        = "kibana"
+}
+
+data "google_dns_managed_zone" "kiali_gke_prod_zone" {
+  name        = "kiali"
+}
+
+data "google_dns_managed_zone" "tracing_gke_prod_zone" {
+  name        = "tracing"
+}
+
+data "google_dns_managed_zone" "istio_grafana_gke_prod_zone" {
+  name        = "istio-grafana"
+}
+
 locals {
   ingressgateway_ip = data.kubernetes_service.istio_ingressgateway.status.0.load_balancer.0.ingress.0.ip
 }
@@ -106,7 +126,7 @@ resource "google_dns_record_set" "grafana_gke_prod_resource_recordset" {
   type         = "A"
   ttl          = 60
 
-  managed_zone = data.google_dns_managed_zone.gke_prod_zone.name
+  managed_zone = data.google_dns_managed_zone.grafana_gke_prod_zone.name
   rrdatas      = [local.ingressgateway_ip]
 }
 
@@ -115,7 +135,7 @@ resource "google_dns_record_set" "kibana_gke_prod_resource_recordset" {
   type         = "A"
   ttl          = 60
 
-  managed_zone = data.google_dns_managed_zone.gke_prod_zone.name
+  managed_zone = data.google_dns_managed_zone.kibana_gke_prod_zone.name
   rrdatas      = [local.ingressgateway_ip]
 }
 
@@ -124,7 +144,7 @@ resource "google_dns_record_set" "kiali_gke_prod_resource_recordset" {
   type         = "A"
   ttl          = 60
 
-  managed_zone = data.google_dns_managed_zone.gke_prod_zone.name
+  managed_zone = data.google_dns_managed_zone.kiali_gke_prod_zone.name
   rrdatas      = [local.ingressgateway_ip]
 }
 
@@ -133,7 +153,7 @@ resource "google_dns_record_set" "tracing_gke_prod_resource_recordset" {
   type         = "A"
   ttl          = 60
 
-  managed_zone = data.google_dns_managed_zone.gke_prod_zone.name
+  managed_zone = data.google_dns_managed_zone.tracing_gke_prod_zone.name
   rrdatas      = [local.ingressgateway_ip]
 }
 
@@ -142,7 +162,7 @@ resource "google_dns_record_set" "istio_grafana_gke_prod_resource_recordset" {
   type         = "A"
   ttl          = 60
 
-  managed_zone = data.google_dns_managed_zone.gke_prod_zone.name
+  managed_zone = data.google_dns_managed_zone.istio_grafana_gke_prod_zone.name
   rrdatas      = [local.ingressgateway_ip]
 }
 
@@ -181,7 +201,7 @@ resource "kubectl_manifest" "letsencrypt" {
 
 # Issue a certficate
 data "kubectl_file_documents" "manifests_certificate" {
-    content = file("./manifests/certificate.yaml")
+    content = (var.project_id == "corded-terrain-309700") ? file("./manifests/certificate-jing.yaml") : file("./manifests/certificate-xinyu.yaml")
 }
 
 resource "kubectl_manifest" "certificate" {
