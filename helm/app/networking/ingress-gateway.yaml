@@ -44,8 +44,6 @@ spec:
   - match:
     - uri:
         prefix: /webapp
-    - uri:
-        prefix: /actuator
     route:
     - destination:
         port:
@@ -70,7 +68,7 @@ spec:
       protocol: HTTPS
     tls:
       mode: SIMPLE
-      credentialName: istio-ingress-gateway-crt
+      credentialName: grafana-istio-ingress-gateway-crt
     hosts:
     - "grafana.gke.prod.xinyuzhang.me"
     - "grafana.gke.prod.bh7cw.me"
@@ -121,7 +119,7 @@ spec:
       protocol: HTTPS
     tls:
       mode: SIMPLE
-      credentialName: istio-ingress-gateway-crt
+      credentialName: kibana-istio-ingress-gateway-crt
     hosts:
     - "kibana.gke.prod.xinyuzhang.me"
     - "kibana.gke.prod.bh7cw.me"
@@ -172,7 +170,7 @@ spec:
       protocol: HTTPS
     tls:
       mode: SIMPLE
-      credentialName: istio-ingress-gateway-crt
+      credentialName: kiali-istio-ingress-gateway-crt
     hosts:
     - "kiali.gke.prod.xinyuzhang.me"
     - "kiali.gke.prod.bh7cw.me"
@@ -223,7 +221,7 @@ spec:
       protocol: HTTPS
     tls:
       mode: SIMPLE
-      credentialName: istio-ingress-gateway-crt
+      credentialName: tracing-istio-ingress-gateway-crt
     hosts:
     - "tracing.gke.prod.xinyuzhang.me"
     - "tracing.gke.prod.bh7cw.me"
@@ -274,7 +272,7 @@ spec:
       protocol: HTTPS
     tls:
       mode: SIMPLE
-      credentialName: istio-ingress-gateway-crt
+      credentialName: istio-grafana-istio-ingress-gateway-crt
     hosts:
     - "istio-grafana.gke.prod.xinyuzhang.me"
     - "istio-grafana.gke.prod.bh7cw.me"
