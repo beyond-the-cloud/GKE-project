@@ -1,0 +1,221 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: istio-ingress-gateway-crt
+  namespace: istio-system
+  annotations:
+    cert-manager.io/issue-temporary-certificate: "true"
+    acme.cert-manager.io/http01-edit-in-place: "true"
+spec:
+  # Secret names are always required.
+  secretName: istio-ingress-gateway-crt
+  duration: 2160h # 90d
+  renewBefore: 360h # 15d
+  subject:
+    organizationalUnits:
+    - jetstack
+  isCA: false
+  keyAlgorithm: rsa
+  keyEncoding: pkcs1
+  keySize: 2048
+  usages:
+    - server auth
+    - client auth
+  # At least one of a DNS Name, URI, or IP address is required.
+  commonName: gke.prod.bh7cw.me
+  dnsNames:
+  - gke.prod.bh7cw.me
+  # Issuer references are always required.
+  issuerRef:
+    name: letsencrypt-prod
+    # We can reference ClusterIssuers by changing the kind here.
+    # The default value is Issuer (i.e. a locally namespaced Issuer)
+    kind: ClusterIssuer
+    # This is optional since cert-manager will default to this value however
+    # if you are using an external issuer, change this to that issuer group.
+    group: cert-manager.io
+---
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: grafana-istio-ingress-gateway-crt
+  namespace: istio-system
+  annotations:
+    cert-manager.io/issue-temporary-certificate: "true"
+    acme.cert-manager.io/http01-edit-in-place: "true"
+spec:
+  # Secret names are always required.
+  secretName: grafana-istio-ingress-gateway-crt
+  duration: 2160h # 90d
+  renewBefore: 360h # 15d
+  subject:
+    organizationalUnits:
+    - jetstack
+  isCA: false
+  keyAlgorithm: rsa
+  keyEncoding: pkcs1
+  keySize: 2048
+  usages:
+    - server auth
+    - client auth
+  # At least one of a DNS Name, URI, or IP address is required.
+  # commonName: gke.prod.xinyuzhang.me  # gke.prod.bh7cw.me
+  dnsNames:
+  - grafana.gke.prod.bh7cw.me
+  # Issuer references are always required.
+  issuerRef:
+    name: letsencrypt-prod
+    # We can reference ClusterIssuers by changing the kind here.
+    # The default value is Issuer (i.e. a locally namespaced Issuer)
+    kind: ClusterIssuer
+    # This is optional since cert-manager will default to this value however
+    # if you are using an external issuer, change this to that issuer group.
+    group: cert-manager.io
+---
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: kiali-istio-ingress-gateway-crt
+  namespace: istio-system
+  annotations:
+    cert-manager.io/issue-temporary-certificate: "true"
+    acme.cert-manager.io/http01-edit-in-place: "true"
+spec:
+  # Secret names are always required.
+  secretName: kiali-istio-ingress-gateway-crt
+  duration: 2160h # 90d
+  renewBefore: 360h # 15d
+  subject:
+    organizationalUnits:
+    - jetstack
+  isCA: false
+  keyAlgorithm: rsa
+  keyEncoding: pkcs1
+  keySize: 2048
+  usages:
+    - server auth
+    - client auth
+  # At least one of a DNS Name, URI, or IP address is required.
+  # commonName: gke.prod.xinyuzhang.me  # gke.prod.bh7cw.me
+  dnsNames:
+  - kiali.gke.prod.bh7cw.me
+  # Issuer references are always required.
+  issuerRef:
+    name: letsencrypt-prod
+    # We can reference ClusterIssuers by changing the kind here.
+    # The default value is Issuer (i.e. a locally namespaced Issuer)
+    kind: ClusterIssuer
+    # This is optional since cert-manager will default to this value however
+    # if you are using an external issuer, change this to that issuer group.
+    group: cert-manager.io
+---
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: kibana-istio-ingress-gateway-crt
+  namespace: istio-system
+  annotations:
+    cert-manager.io/issue-temporary-certificate: "true"
+    acme.cert-manager.io/http01-edit-in-place: "true"
+spec:
+  # Secret names are always required.
+  secretName: kibana-istio-ingress-gateway-crt
+  duration: 2160h # 90d
+  renewBefore: 360h # 15d
+  subject:
+    organizationalUnits:
+    - jetstack
+  isCA: false
+  keyAlgorithm: rsa
+  keyEncoding: pkcs1
+  keySize: 2048
+  usages:
+    - server auth
+    - client auth
+  # At least one of a DNS Name, URI, or IP address is required.
+  # commonName: gke.prod.xinyuzhang.me  # gke.prod.bh7cw.me
+  dnsNames:
+  - kibana.gke.prod.bh7cw.me
+  # Issuer references are always required.
+  issuerRef:
+    name: letsencrypt-prod
+    # We can reference ClusterIssuers by changing the kind here.
+    # The default value is Issuer (i.e. a locally namespaced Issuer)
+    kind: ClusterIssuer
+    # This is optional since cert-manager will default to this value however
+    # if you are using an external issuer, change this to that issuer group.
+    group: cert-manager.io
+---
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: tracing-istio-ingress-gateway-crt
+  namespace: istio-system
+  annotations:
+    cert-manager.io/issue-temporary-certificate: "true"
+    acme.cert-manager.io/http01-edit-in-place: "true"
+spec:
+  # Secret names are always required.
+  secretName: tracing-istio-ingress-gateway-crt
+  duration: 2160h # 90d
+  renewBefore: 360h # 15d
+  subject:
+    organizationalUnits:
+    - jetstack
+  isCA: false
+  keyAlgorithm: rsa
+  keyEncoding: pkcs1
+  keySize: 2048
+  usages:
+    - server auth
+    - client auth
+  # At least one of a DNS Name, URI, or IP address is required.
+  # commonName: gke.prod.xinyuzhang.me  # gke.prod.bh7cw.me
+  dnsNames:
+  - tracing.gke.prod.bh7cw.me
+  # Issuer references are always required.
+  issuerRef:
+    name: letsencrypt-staging  # letsencrypt-prod
+    # We can reference ClusterIssuers by changing the kind here.
+    # The default value is Issuer (i.e. a locally namespaced Issuer)
+    kind: ClusterIssuer
+    # This is optional since cert-manager will default to this value however
+    # if you are using an external issuer, change this to that issuer group.
+    group: cert-manager.io
+---
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: istio-grafana-istio-ingress-gateway-crt
+  namespace: istio-system
+  annotations:
+    cert-manager.io/issue-temporary-certificate: "true"
+    acme.cert-manager.io/http01-edit-in-place: "true"
+spec:
+  # Secret names are always required.
+  secretName: istio-grafana-istio-ingress-gateway-crt
+  duration: 2160h # 90d
+  renewBefore: 360h # 15d
+  subject:
+    organizationalUnits:
+    - jetstack
+  isCA: false
+  keyAlgorithm: rsa
+  keyEncoding: pkcs1
+  keySize: 2048
+  usages:
+    - server auth
+    - client auth
+  # At least one of a DNS Name, URI, or IP address is required.
+  # commonName: gke.prod.xinyuzhang.me  # gke.prod.bh7cw.me
+  dnsNames:
+  - istio-grafana.gke.prod.bh7cw.me
+  # Issuer references are always required.
+  issuerRef:
+    name: letsencrypt-prod
+    # We can reference ClusterIssuers by changing the kind here.
+    # The default value is Issuer (i.e. a locally namespaced Issuer)
+    kind: ClusterIssuer
+    # This is optional since cert-manager will default to this value however
+    # if you are using an external issuer, change this to that issuer group.
+    group: cert-manager.io
