@@ -2,7 +2,7 @@
 apiVersion: "security.istio.io/v1beta1"
 kind: "PeerAuthentication"
 metadata:
-  name: "peer-auth-policy"
+  name: "notifier-peer-auth-policy"
   namespace: "default"
 spec:
   selector:
@@ -14,7 +14,7 @@ spec:
 apiVersion: "networking.istio.io/v1alpha3"
 kind: "DestinationRule"
 metadata:
-  name: "destination-rule-webapp"
+  name: "destination-rule-notifier-webapp"
   namespace: default
 spec:
   host: notifier-webapp-deployment-svc.default.svc.cluster.local

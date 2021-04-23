@@ -23,7 +23,7 @@ spec:
     - client auth
   # At least one of a DNS Name, URI, or IP address is required.
   dnsNames:
-  - gke.prod.xinyuzhang.me
+  # - gke.prod.xinyuzhang.me
   - gke.prod.bh7cw.me
   # Issuer references are always required.
   issuerRef:
